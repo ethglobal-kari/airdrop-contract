@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "commander": "^9.4.0",
+    "dotenv": "^16.0.2",
     "ethereumjs-util": "^7.1.5",
     "ethers": "^5.7.1"
   }
