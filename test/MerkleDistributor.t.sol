@@ -9,15 +9,10 @@ contract MerkleDistributorTest is Test {
     MerkleDistributor merkle;
     MockToken token;
 
-    uint256 private ownerPrivateKey;
-
-    address internal ownerAddress;
     address internal tokenAddress;
     address internal merkleAddress;
 
     function setUp() public {
-        ownerPrivateKey = 0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80;
-        ownerAddress = vm.addr(ownerPrivateKey);
         token = new MockToken("Fake USD", "FUSD", 6);
         tokenAddress = address(token);
         merkle = new MerkleDistributor(
