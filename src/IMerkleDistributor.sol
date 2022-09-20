@@ -12,6 +12,12 @@ interface IMerkleDistributor {
     // Returns true if the index has been marked claimed.
     function isClaimed(uint256 index) external view returns (bool);
 
+    // Returns total airdrop
+    function total() external view returns (uint256);
+
+    // Returns number of claimed airdrop
+    function claimed() external view returns (uint256);
+
     // Claim the given amount of the token to the given address. Reverts if the inputs are invalid.
     function claim(
         uint256 index,

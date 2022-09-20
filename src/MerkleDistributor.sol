@@ -8,13 +8,21 @@ import "./IMerkleDistributor.sol";
 contract MerkleDistributor is IMerkleDistributor {
     address public immutable override token;
     bytes32 public immutable override merkleRoot;
+    uint256 public immutable override total;
+    uint256 public override claimed;
 
     // This is a packed array of booleans.
     mapping(uint256 => uint256) private claimedBitMap;
 
-    constructor(address token_, bytes32 merkleRoot_) {
+    constructor(
+        address token_,
+        bytes32 merkleRoot_,
+        uint256 total_
+    ) {
         token = token_;
         merkleRoot = merkleRoot_;
+        total = total_;
+        claimed = 0;
     }
 
     function isClaimed(uint256 index) public view override returns (bool) {
@@ -31,6 +39,7 @@ contract MerkleDistributor is IMerkleDistributor {
         claimedBitMap[claimedWordIndex] =
             claimedBitMap[claimedWordIndex] |
             (1 << claimedBitIndex);
+        claimed += 1;
     }
 
     function claim(
@@ -39,6 +48,10 @@ contract MerkleDistributor is IMerkleDistributor {
         uint256 amount,
         bytes32[] calldata merkleProof
     ) external override {
+        require(
+            claimed <= total,
+            "MerkleDistributor: Total claimed max already"
+        );
         require(!isClaimed(index), "MerkleDistributor: Drop already claimed.");
 
         // Verify the merkle proof.

@@ -25,10 +25,12 @@ contract DistributorFactoryTest is Test {
         address distributorAddress = factory.createDistributor(
             tokenAddress,
             merkleRoot,
+            100,
             incentiveId
         );
         IMerkleDistributor distributor = IMerkleDistributor(distributorAddress);
         assertEq(distributor.token(), tokenAddress);
         assertEq(distributor.merkleRoot(), merkleRoot);
+        assertEq(distributor.total(), 100);
     }
 }

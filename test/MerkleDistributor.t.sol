@@ -17,7 +17,8 @@ contract MerkleDistributorTest is Test {
         tokenAddress = address(token);
         merkle = new MerkleDistributor(
             tokenAddress,
-            0x65b315f4565a40f738cbaaef7dbab4ddefa14620407507d0f2d5cdbd1d8063f6
+            0x65b315f4565a40f738cbaaef7dbab4ddefa14620407507d0f2d5cdbd1d8063f6,
+            50
         );
         merkleAddress = address(merkle);
     }
@@ -27,6 +28,7 @@ contract MerkleDistributorTest is Test {
             merkle.merkleRoot(),
             0x65b315f4565a40f738cbaaef7dbab4ddefa14620407507d0f2d5cdbd1d8063f6
         );
+        assertEq(merkle.total(), 50);
         // check airdrop for address "0x7D13f07889F04a593a3E12f5d3f8Bf850d07465B"
         assertFalse(merkle.isClaimed(44));
         // transfer some money to distributor
@@ -60,5 +62,6 @@ contract MerkleDistributorTest is Test {
             0x0a,
             proofs
         );
+        assertEq(merkle.claimed(), 1);
     }
 }

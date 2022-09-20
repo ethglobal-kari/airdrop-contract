@@ -14,11 +14,13 @@ contract DistributorFactory {
     function createDistributor(
         address _tokenAddress,
         bytes32 _merketRoot,
+        uint256 _total,
         string calldata _incentiveId
     ) external returns (address distributorAddress) {
         MerkleDistributor distributor = new MerkleDistributor(
             _tokenAddress,
-            _merketRoot
+            _merketRoot,
+            _total
         );
         distributorAddress = address(distributor);
         emit DistributorSetup(distributorAddress, _incentiveId);
